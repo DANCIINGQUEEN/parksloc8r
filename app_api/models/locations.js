@@ -33,6 +33,8 @@ const locationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
+        //만일 name필드가 누락된 경우, create()메소드는 오류 발생을 알리고
+        //다큐먼트를 DB에 저장하지 않는다
     },
     address: String,
     rating: {
@@ -47,9 +49,9 @@ const locationSchema = new mongoose.Schema({
         coordinates: [Number]
     },
     openingTimes: [openingTimeSchema],
-    reviews:[reviewSchema]
+    reviews: [reviewSchema]
 })
 
 
-locationSchema.index({coords: '2dsphere'})
+locationSchema.index({coords: "2dsphere"})
 mongoose.model('Location', locationSchema)

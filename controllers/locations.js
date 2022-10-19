@@ -14,12 +14,12 @@ const homeList = (req, res) => {
         method: 'GET',
         json: {},
         qs: {
-            // lng: 126.9731253695056,
-            // lat: 37.58801220390208,
-            // maxDistance: 200000
-            lng:1,
-            lat:1,
-            maxDistance:0.002
+            lng: 126.9731253695056,
+            lat: 37.58801220390208,
+            maxDistance: 200000
+            // lng:1,
+            // lat:1,
+            // maxDistance:0.002
         }
     }
     request(
@@ -49,13 +49,13 @@ const formatDistance = (distance) => {
     return thisDistance + unit
 }
 const renderHomepage = (req, res, responseBody) => {
-    let message=null
-    if(!(responseBody instanceof Array)){
-        message="API lookup error"
-        responseBody=[]
-    }else{
-        if(!responseBody.length){
-            message='No places found nearby'
+    let message = null
+    if (!(responseBody instanceof Array)) {
+        message = "API lookup error"
+        responseBody = []
+    } else {
+        if (!responseBody.length) {
+            message = 'No places found nearby'
         }
     }
     res.render('locations-list', {
@@ -72,55 +72,57 @@ const renderHomepage = (req, res, responseBody) => {
         }
     )
 }
-
-
-/*GET location info page 2017125009 박지웅*/
-const locationInfo = (req, res) => {
+//2017125009 박지웅
+const renderDetailPage = (req, res, location) => {
     res.render('location-info', {
-            title: 'Starcups',
-            pageHeader: {title: 'Starcups'},
+            title: location.name,
+            pageHeader: {title: location.name},
             sidebar: {
                 context: 'is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.',
                 callToAction: `If you've been and you like it or if you don't please leave a review to help other people just like you.`
             },
-            location:
-                {
-                    name: 'Starcup',
-                    address: '서울시특별시 종로구 창의문로 26',
-                    rating: 3,
-                    facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-                    coords: {lat: 37.5851, lng: 126.9723},
-                    openingTimes: [{
-                        days: 'Monday - Friday',
-                        opening: '7:00am',
-                        closing: '7:00pm',
-                        closed: false
-                    }, {
-                        days: 'Saturday',
-                        opening: '8:00am',
-                        closing: '5:00pm',
-                        closed: false
-                    }, {
-                        days: 'Sunday',
-                        closed: true
-                    }
-                    ],
-                    reviews: [
-                        {
-                            author: '박지웅',
-                            rating: 5,
-                            timestamp: '16 July 2022',
-                            reviewText: `짱짱굿`
-                        },
-                        {
-                            author: 'Charlie Chaplin',
-                            rating: 3,
-                            timestamp: '16 July 2022',
-                            reviewText: `It was okay. Coffee wasn't great, but the wifi was fast.`
-                        }
-                    ]
-                }
+            location
+        }
+    )
+}
+/*GET location info page 2017125009 박지웅*/
+const showError=(req,res,status)=>{
+    let title=''
+    let content=''
+    if(status===404){
+        title='404, page not found'
+        content=`Oh dear, Looks like you can't find this page. Sorry.`
+    }else{
+        title=`${status}, something's gone wrong`
+        content=`something, somewhere, has gone just a little bit wrong`
+    }
+    res.status(status)
+    res.render('generic-text', {
+        title,
+        content
+    })
+}
+const locationInfo = (req, res) => {
+    const path = `/api/locations/${req.params.locationid}`
+    const requestOptions = {
+        url: `${apiOptions.server}${path}`,
+        method: 'GET',
+        json: {}
+    }
+    request(
+        requestOptions,
+        (err, {statusCode}, body) => {
+            const data = body
+            if(statusCode === 200){
 
+            data.coords = {
+                lng: body.coords[0],
+                lat: body.coords[1]
+            }
+            renderDetailPage(req, res, data)
+            }else{
+                showError(req,res,statusCode)
+            }
         }
     )
 

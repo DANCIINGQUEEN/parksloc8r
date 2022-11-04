@@ -195,6 +195,7 @@ const locationsDeleteOne = (req, res) => {
             })
     }
 }
+
 module.exports = {
     locationsListByDistance,
     locationsCreate,

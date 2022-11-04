@@ -10,12 +10,15 @@ const ctrlOthers=require('../controllers/others')
 /*Location pages*/
 router.get('/', ctrlLocations.homeList);
 router.get('/location/:locationid', ctrlLocations.locationInfo);
-router.get('/location/review/new', ctrlLocations.addReview);
-
+// router.get('/location/review/new', ctrlLocations.addReview);
+router
+    .route('/location/:locationid/review/new')
+    .get(ctrlLocations.addReview)
+    .post(ctrlLocations.doAddReview)
+//2017125009 박지웅
 /*Other pages*/
 router.get('/about', ctrlOthers.about)
 
 
 
 module.exports = router;
-//2017125009 박지웅

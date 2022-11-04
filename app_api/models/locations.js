@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-//2017125009 박지웅
+
 const openingTimeSchema = new mongoose.Schema({
     days: {
         type: String,
@@ -12,16 +12,23 @@ const openingTimeSchema = new mongoose.Schema({
         required: true
     }
 })
-
+//2017125009 박지웅
 const reviewSchema = new mongoose.Schema({
-    author: String,
+    author: {
+        type:String,
+        required:true
+
+    },
     rating: {
         type: Number,
         required: true,
         min: 0,
         max: 5
     },
-    reviewText: String,
+    reviewText: {
+        type:String,
+        required:true
+    },
     createdOn: {
         type: Date,
         'default': Date.now

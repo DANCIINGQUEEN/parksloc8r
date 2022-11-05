@@ -4,7 +4,7 @@ const apiOptions = {
     server: 'http://localhost:3000'  //개발 환경
 }
 if (process.env.NODE_ENV === 'production') {
-    apiOptions.server = 'https://parksloc8r.herokuapp.com/'
+    apiOptions.server = 'https://parksloc8r.herokuapp.com'
 }   //api콜을 해야 하는 모든 컨트롤러에서 어떤 환겨인지 확인하는 일을 피하도록 하기 위해
 // 컨트롤러 파일의 상단에 한번만 디폴트 설정 옵션을 설정.
 const homeList = (req, res) => {

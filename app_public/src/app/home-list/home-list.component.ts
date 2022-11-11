@@ -30,26 +30,6 @@ export class HomeListComponent implements OnInit {
       .getLocations()
       .then(foundLocations => this.locations = foundLocations)
   }
-
-  name = "Burger Queen"
-
-  // locations: Location[] = [{
-  //   _id: '6346919ee34f6821dc358b9e',
-  //   name: "CU",
-  //   distance: 5100.0,
-  //   address: '서울시 종로구 자하문로 93',
-  //   rating: 2,
-  //   facilities: ['Hot Drinks', 'Premium wifi']
-  // },
-  //   {
-  //     _id: '633d18fb7ec03579924a7c60',
-  //     name: '산모퉁이',
-  //     distance: 120.542,
-  //     address: '종로구 백석동길 153',
-  //     rating: 4,
-  //     facilities: ['wifi', 'food', 'hot drinks']
-  //   }]
-
   ngOnInit(){
     this.getLocations()
   }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Loc8rDataService} from "../loc8r-data.service";
+import {GeolocationService} from "../geolocation.service";
 
 //OnInit : 앵귤러 라이프사이클 메소드
 // 애플리케이션 실행을 시작하면 어떤 사건이 특별한 순서로 일어나도록 해줌
@@ -21,17 +22,41 @@ export class Location {
 })
 export class HomeListComponent implements OnInit {
 
-  constructor(private loc8rDataService: Loc8rDataService) {}
+  constructor(private loc8rDataService: Loc8rDataService,
+              private geolocationService: GeolocationService) {
+  }
 
   public locations: Location[]
 
-  private getLocations(): void {
+  public message: string
+
+  ngOnInit() {
+    this.getPosition()
+  }
+  private getPosition() :void{
+    this.message='Getting your location....'
+    this.geolocationService.getPosition(
+      this.getLocations.bind(this),
+      this.showError.bind(this),
+      this.noGeo.bind(this)
+    )
+  }
+//2017125009 박지웅
+  private getLocations(position: any): void {
+    this.message = 'Searching for nearby places'
     this.loc8rDataService
       .getLocations()
-      .then(foundLocations => this.locations = foundLocations)
+      .then(foundLocations => {
+        this.message = foundLocations.length > 0 ? '' : 'No Locations Found'
+        this.locations = foundLocations
+      })
   }
-  ngOnInit(){
-    this.getLocations()
+
+  private showError(error: any): void {
+    this.message = error.message
+  }
+  private noGeo():void{
+    this.message='Geolocation not supported by this browser'
   }
 
 }

@@ -12,6 +12,9 @@ export class Location {
   address!: string;
   rating!: number;
   facilities!: string[];
+  reviews!:any[]
+  coords!:number[]
+  openingTimes!:any[]
 }
 
 // 2017125009  박지웅

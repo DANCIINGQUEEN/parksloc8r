@@ -15,7 +15,7 @@ export class MostRecentFirstPipe implements PipeTransform {
     }
     return comparison
   }
-
+//2017125009 박지웅
   transform(reviews: any[]): any[] {
     if (reviews && reviews.length) {
       return reviews.sort(this.compare);

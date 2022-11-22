@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HomeListComponent } from './home-list/home-list.component';
 import { DistancePipe } from './distance.pipe';
 import {HttpClientModule} from "@angular/common/http";
-
+import {AppRoutingModule} from "./app-routing/app-routing.module";
 import {RouterModule} from '@angular/router';
 import { FrameworkComponent } from './framework/framework.component';
 import { AboutComponent } from './about/about.component';
@@ -39,21 +39,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      {
-        path:'',
-        component:HomepageComponent
-      },
-      {
-        path:'about',
-        component:AboutComponent
-      },
-      {
-        path:'location/:locationId',
-        component:DetailsPageComponent
-      }
-
-    ])
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [FrameworkComponent]

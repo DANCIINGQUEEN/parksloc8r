@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import { Loc8rDataService } from '../loc8r-data.service';
-import {Location} from '../home-list/home-list.component'
+// import {Location} from '../home-list/home-list.component'
+import {Location} from '../location'
 import {switchMap} from 'rxjs/operators'
 //2017125009 박지웅
 @Component({

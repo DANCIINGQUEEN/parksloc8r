@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./app_api/models/db')  //2017125009 박지웅
 
-var indexRouter = require('./routes/index');
+// var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 const apiRouter = require('./app_api/routes/index')
@@ -22,15 +22,20 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public')));
+app.use(express.static(path.join(__dirname, 'app_public', 'build')));
 
 app.use('/api', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
     next()
 })//2017125009 박지웅
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/api', apiRouter)
 app.use('/users', usersRouter);
+
+app.get(/(\about)|(\/location\/[a-z0-9]{24})/,function(req,res,next){
+    res.sendFile(path.join(__dirname, 'app_public', 'build', 'index.html'))
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

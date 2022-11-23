@@ -40,4 +40,5 @@ process.on('SIGTERM', function(){
 })
 
 require('./locations')
+require('./users')
 //2017125009 박지웅

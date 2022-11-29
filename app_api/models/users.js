@@ -25,7 +25,7 @@ userSchema.methods.validPassword = function (password) {
     const hash = crypto
         .pbkdf2Sync(password, this.salt, 1000, 64, 'sha512')
         .toString('hex')
-    return this.hash = hash
+    return this.hash === hash
 }
 userSchema.methods.generateJwt = function () {
     const expiry = new Date()
@@ -35,7 +35,7 @@ userSchema.methods.generateJwt = function () {
         email: this.email,
         name: this.name,
         exp: parseInt(expiry.getTime() / 1000, 10),
-    }, 'thisIsSecret')
+    }, process.env.JWT_SECRET)
 }
 mongoose.model('User', userSchema)
 //2017125009 박지웅

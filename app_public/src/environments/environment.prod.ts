@@ -1,4 +1,4 @@
 export const environment = {
-  apiBaseUrl:'https://parksloc8r.herokuapp.com/api',
+  apiBaseUrl:'https://parkloc8r.herokuapp.com/api',
   production: true
 };
